@@ -1,4 +1,4 @@
-const { Videogame, conn } = require('../../src/db.js');
+const { Videogame, Gender, conn } = require('../../src/db.js');
 const { expect } = require('chai');
 
 describe('Videogame model', () => {
@@ -15,7 +15,27 @@ describe('Videogame model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', () => {
-        Recipe.create({ name: 'Super Mario Bros' });
+        Videogame.create({ name: 'Super Mario Bros', description: 'Mario Bros new adventure', platforms: 'PS4' });
+      });
+    });
+  });
+});
+
+describe('Gender model', () => {
+  before(() => conn.authenticate()
+    .catch((err) => {
+      console.error('Unable to connect to the database:', err);
+    }));
+  describe('Validators', () => {
+    beforeEach(() => Gender.sync({ force: true }));
+    describe('name', () => {
+      it('should throw an error if name is null', (done) => {
+        Gender.create({})
+          .then(() => done(new Error('It requires a valid name')))
+          .catch(() => done());
+      });
+      it('should work when its a valid name', () => {
+        Gender.create({ name: 'Action' });
       });
     });
   });
