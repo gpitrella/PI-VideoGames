@@ -25,18 +25,18 @@ fs.readdirSync(path.join(__dirname, '/models'))
 // Injectamos la conexion (sequelize) a todos los modelos
 modelDefiners.forEach(model => model(sequelize));
 // Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-sequelize.models = Object.fromEntries(capsEntries);
+// let entries = Object.entries(sequelize.models);
+// let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
+// sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Videogame, Gender } = sequelize.models;
+const { Videogame, Genre } = sequelize.models;
 
 // Associations
 // Product.hasMany(Reviews);
-Videogame.belongsToMany(Gender, { through: 'Videogame_Gender'});
-Gender.belongsToMany(Videogame, { through: 'Videogame_Gender'});
+Videogame.belongsToMany(Genre, { through: 'Videogame_Genre'});
+Genre.belongsToMany(Videogame, { through: 'Videogame_Genre'});
 
 
 module.exports = {
