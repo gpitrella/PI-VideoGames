@@ -10,12 +10,37 @@ router.get('/', async (req, res, next)=>{
     
     try{
         const { name } = req.query;
-        const allApiVideogames = []
-        let data = [1, 2, 3, 4, 5].map((n) => {
-            return axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${n}`)
+        if(!name){
+            const allApiVideogames = []
+            let dataGamesApi = [1, 2, 3, 4, 5].map((n) => {
+                return axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${n}`)
+                    .then(res => res.data.results)
+                    .then(res => res.map(game => (
+                        allApiVideogames.push({
+                            name: game.name,
+                            id: game.id,
+                            genres: game.genres,
+                            released: game.released,
+                            rating: game.rating,
+                            image: game.background_image,
+                            platforms: game.platforms
+                        })
+                    )))   
+            });
+    
+            await Promise.all(dataGamesApi)
+    
+            const dbVideogames = await Videogame.findAll();
+                res.status(200).json(dbVideogames.concat(allApiVideogames));
+        } else {
+            const dbVideogames = await Videogame.findAll();
+            const filterDbVg = dbVideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()));
+
+            const filterApiVg = []
+            await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
                 .then(res => res.data.results)
-                .then(res => res.map(game => (
-                    allApiVideogames.push({
+                .then(res => res.slice(0, 15).map(game => (
+                    filterApiVg.push({
                         name: game.name,
                         id: game.id,
                         genres: game.genres,
@@ -24,18 +49,11 @@ router.get('/', async (req, res, next)=>{
                         image: game.background_image,
                         platforms: game.platforms
                     })
-                )))   
-        });
+                )))
+            const allFilterGames = filterDbVg.concat(filterApiVg)
 
-        await Promise.all(data)
-
-        const dbVideogames = await Videogame.findAll();
-        if(!name){
-                res.status(200).json(dbVideogames.concat(allApiVideogames));
-        } else {
-            const filterApiVideogames = dbVideogames.concat(allApiVideogames).filter(game => game.name.includes(name));
-            filterApiVideogames.length > 0
-                ? res.status(200).json(filterApiVideogames.slice(0, 15))
+            allFilterGames.length > 0
+                ? res.status(200).json(allFilterGames.slice(0, 15))
                 : res.status(400).send("Don't found any Game with this name. Try again please ...");
         }
     } catch (error){
