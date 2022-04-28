@@ -101,11 +101,14 @@ router.get('/:idVideogame', async (req, res, next) => {
 
 router.post('/', async (req, res, next)=>{
     const { name, description, released, rating, platforms, genres } = req.body;
+    console.log(req.body)
     try{
         const newVideogame = await Videogame.create(req.body);
+        
         let genresId = await Genre.findAll({
             where: { name: genres }
         })
+
         newVideogame.addGenre(genresId);
         res.status(200).send(newVideogame);
     } catch (error){

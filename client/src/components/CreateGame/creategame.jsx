@@ -4,9 +4,12 @@ import { createGame, getAllGenres } from '../../redux/actions';
 import './CreateGame.css'
 
 export function CreateGame(props) {
-    React.useEffect(() =>{   
-        props.getAllGenres();
-    });
+    
+    React.useEffect(() =>{  
+        if(props.allGenres.length === 0) props.getAllGenres();        
+    }, [props]);
+    
+      
 
     const [ game, setGame ] = React.useState({
         name: '',
@@ -26,7 +29,6 @@ export function CreateGame(props) {
     };
 
     function handleOnSubmit(e){
-        console.log(game)
         e.preventDefault();
         props.createGame(game)
         setGame({
@@ -48,20 +50,28 @@ export function CreateGame(props) {
                    Name: <input type='text' name='name' onChange={handleChange}></input>
                </label>
                <label>
-                   Description: <input type='text' name='description' onChange={handleChange}></input>
+                   Description: <input type='text' name='description' onChange={(e) => handleChange(e)}></input>
                </label>
                <label>
-                    Date Released: <input type='date' name='released' onChange={handleChange}></input>
+                    Date Released: <input type='date' name='released' onChange={(e) => handleChange(e)}></input>
                </label>
                <label>
-                    Rating: <input type='number' name='rating' onChange={handleChange}></input>
+                    Rating: <input type='number' name='rating' onChange={(e) => handleChange(e)}></input>
                </label>
                <label>
-                    Platforms: <input type='text' name='platforms' onChange={handleChange}></input>
+                    Platforms: <input type='text' name='platforms' onChange={(e) => handleChange(e)}></input>
                </label>
-               <label>
-                    Genres: <input type='text' name='genres' onChange={handleChange}></input>
-               </label>
+               <label> Genres: </label>
+               
+                     {/* <input type='text' name='genres' onChange={handleChange}></input> */}
+                    <select type='text'name='genres' onChange={(e) => handleChange(e)} multiple={true}>
+                    
+                        {props.allGenres && props.allGenres.map((g)=>(
+                            <option key={g.id} value={g.name}>{g.name}</option>
+                        ))}                     
+                                           
+                    </select>
+               
                <div>
                     <button type='submit'>Create Game</button> 
                </div>
@@ -77,4 +87,10 @@ function mapDispatchToProps(dispatch){
     }
 };
 
-export default connect(null, mapDispatchToProps)(CreateGame)
+function mapStatetoProps(state){
+    return {
+        allGenres: state.allGenres
+    }
+}
+
+export default connect( mapStatetoProps, mapDispatchToProps)(CreateGame)

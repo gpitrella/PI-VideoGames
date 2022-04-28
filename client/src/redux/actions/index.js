@@ -44,7 +44,6 @@ export function getGameDetail(idVideogame){
 
 // Create Game
 export function createGame(payload){
-    console.log(payload)
     return function(dispatch){
         return axios.post(`http://localhost:3001/videogame`, payload)
         .then(game => dispatch({ type: CREATE_GAME, payload: game.data}))
@@ -61,16 +60,15 @@ export function clearGameDetail(){
 
 // Get allGenres
 export function getAllGenres(){
-    return function(dispatch){
-        return axios.get(`http://localhost:3001/genres`)
-                    .then(genres => dispatch({ type: GET_ALL_GENRES }))
+    return async function(dispatch){
+        return await axios.get(`http://localhost:3001/genres`)
+                    .then(genres => dispatch({ type: GET_ALL_GENRES, payload: genres.data})) 
                     .catch(error => console.log(error))
     }
 };
 
 // Filter Games
 export function filterGames(payload){
-    console.log(payload)
     return {
         type: FILTER_GAMES,
         payload: payload

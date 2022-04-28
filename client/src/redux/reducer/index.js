@@ -11,6 +11,11 @@ const initialState = {
     allGames: [],
     filterGames: [],
     gameDetail: {},
+    allGenres: [],
+    dataFilter: {
+        filterStar: 0,
+        filterAz: ''
+    }
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -45,8 +50,10 @@ const rootReducer = (state = initialState, action) => {
             }
         case GET_ALL_GENRES:
             return {
-                ...state,                
+                ...state,
+                allGenres: action.payload              
             }
+            
         case FILTER_GAMES:
             return {
                 ...state,
