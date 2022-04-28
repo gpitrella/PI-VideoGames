@@ -11,11 +11,10 @@ router.get('/', async (req, res, next)=>{
         await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)
             .then(genres => genres.data.results)
             .then(genres => {
-                console.log(genres)
-                genres.map(genre => 
+                genres.map(g => 
                     Genre.create({
-                        id: genre.id,
-                        name: genre.name
+                        id: g.id,
+                        name: g.name
                 }))
             })
         res.status(200).send("Generos Cargados");

@@ -3,7 +3,7 @@ const axios = require("axios");
 require('dotenv').config();
 const { API_KEY } = process.env;
 const { Router } = require('express');
-const { Videogame } = require('../../src/db.js')
+const { Videogame, Genre } = require('../../src/db.js')
 const router = Router();
 
 router.get('/', async (req, res, next)=>{
@@ -12,7 +12,7 @@ router.get('/', async (req, res, next)=>{
         const { name } = req.query;
         if(!name){
             const allApiVideogames = []
-            let dataGamesApi = [1, 2, 3, 4, 5].map((n) => {
+            let dataGamesApi = [1].map((n) => {
                 return axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${n}`)
                     .then(res => res.data.results)
                     .then(res => res.map(game => (
@@ -30,10 +30,15 @@ router.get('/', async (req, res, next)=>{
     
             await Promise.all(dataGamesApi)
     
-            const dbVideogames = await Videogame.findAll();
+            const dbVideogames = await Videogame.findAll({
+                include: Genre
+            });
                 res.status(200).json(dbVideogames.concat(allApiVideogames));
         } else {
-            const dbVideogames = await Videogame.findAll();
+            // SE PUEDE MEJORAR BUSCANDO CON UN WHERE NANE: name
+            const dbVideogames = await Videogame.findAll({
+                include: Genre
+            });
             const filterDbVg = dbVideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()));
 
             const filterApiVg = []
@@ -82,8 +87,9 @@ router.get('/:idVideogame', async (req, res, next) => {
                     res.status(200).json(idApiVideogame)
                 });                
         } else {
-            const dbIdVideogame = await Videogame.findByPk(idVideogame);
-            console.log(dbIdVideogame)
+            const dbIdVideogame = await Videogame.findByPk(idVideogame, {
+                include: Genre
+            });
             dbIdVideogame
                 ? res.status(200).json(dbIdVideogame)
                 : res.status(404).send("DB: Game don't exist, try with other game.");
@@ -94,9 +100,13 @@ router.get('/:idVideogame', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next)=>{
-    const { name, description, released, rating, platforms } = req.body;
+    const { name, description, released, rating, platforms, genres } = req.body;
     try{
         const newVideogame = await Videogame.create(req.body);
+        let genresId = await Genre.findAll({
+            where: { name: genres }
+        })
+        newVideogame.addGenre(genresId);
         res.status(200).send(newVideogame);
     } catch (error){
         next(error)
