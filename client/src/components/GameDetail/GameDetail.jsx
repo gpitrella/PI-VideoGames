@@ -15,10 +15,6 @@ export function GameDetail ({ match }){
         }
     }, [dispatch, idVideogame]);
     
-    
-    console.log(gameDetail)
-    
-       
     return (
         <>
             {gameDetail.name ?

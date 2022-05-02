@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAllGames } from '../../redux/actions';
+import { getAllGames, getAllGenres } from '../../redux/actions';
 import { connect } from 'react-redux';
 import SearchGame from '../SearchGame/SearchGame'
 import './NavBar.css'
@@ -8,7 +8,8 @@ import './NavBar.css'
 export function NavBar(props) {
     
     React.useEffect(() =>{
-        if(props.allGames.length === 0) props.getAllGames()
+        if(props.allGames.length === 0) props.getAllGames();
+        if(props.getAllGenres.length === 0) props.getAllGenres();
     })
     
     return (
@@ -34,7 +35,8 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        getAllGames: () => dispatch(getAllGames())
+        getAllGames: () => dispatch(getAllGames()),
+        getAllGenres: () => dispatch(getAllGenres())
     }
 };
 

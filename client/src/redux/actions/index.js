@@ -6,7 +6,10 @@ import {
     CLEAR_GAME_DETAIL, 
     GET_ALL_GENRES,
     SEARCH_GAMES,
-    FILTER_GAMES } from "./actiontype";
+    FILTER_GAMES,
+    UPDATE_FILTER_STORE,
+    ORDER_BY_NAME,
+    FILTER_BY_GENRE } from "./actiontype";
 
 // Get AllGames - API and DB
 export function getAllGames(){
@@ -18,13 +21,27 @@ export function getAllGames(){
 };
 
 // Search Games - API and DB
-export function searchGames(nameGame){
+// http://localhost:3001/videogame?name=batman&genre=none
+export function searchGames(name, rating, genre){
     return function(dispatch){
-        return axios.get(`http://localhost:3001/videogame?name=${nameGame}`)
-                    .then(games => dispatch({ type: SEARCH_GAMES, payload: games.data}))
-                    .catch(error => console.log(error))
+        return axios.get('http://localhost:3001/videogame?name=' + name + '&rating=' + rating + '&genre=' + genre)
+                        .then(games => {
+                            console.log('PRIMERO: TENGO LA DATA')
+                            dispatch({ type: SEARCH_GAMES, payload: games.data})
+                        })
+                        
+                        .catch(error => console.log(error))
     }
 };
+
+// OTRA FORMA DE HACERLO CON ASYNC - AWAIT
+// export function searchGames(nameGame, genre){
+//     return async function(dispatch){
+//         var json = await axios.get('http://localhost:3001/videogame?name=' + nameGame + '&order=' + genre)
+    
+//     return dispatch({ type: SEARCH_GAMES, payload: json.data});                       
+//     };
+// }
 
 
 // Get Game Detail - API and DB
@@ -68,9 +85,33 @@ export function getAllGenres(){
 };
 
 // Filter Games
-export function filterGames(payload){
+export function filterGames(){
     return {
-        type: FILTER_GAMES,
+        type: FILTER_GAMES,        
+    }
+};
+
+// Update Filter Store
+export function filterUpStore(payload){
+    return {
+        type: UPDATE_FILTER_STORE,
+        payload: payload
+    }
+}
+
+// Order by Name
+export function orderByName(payload){
+    console.log(payload)
+    return {
+        type: ORDER_BY_NAME,
+        payload: payload
+    }
+}
+
+// Filter by Genre
+export function filterByGenre(payload){
+    return {
+        type: FILTER_BY_GENRE,
         payload: payload
     }
 }

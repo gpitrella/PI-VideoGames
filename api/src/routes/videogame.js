@@ -1,5 +1,6 @@
 const axios = require("axios");
 // const e = require("express");
+const { Op } = require('sequelize');
 require('dotenv').config();
 const { API_KEY } = process.env;
 const { Router } = require('express');
@@ -9,7 +10,7 @@ const router = Router();
 router.get('/', async (req, res, next)=>{
     
     try{
-        const { name } = req.query;
+        const { name, rating, genre, creator } = req.query;
         if(!name){
             const allApiVideogames = []
             let dataGamesApi = [1].map((n) => {
@@ -26,21 +27,79 @@ router.get('/', async (req, res, next)=>{
                             platforms: game.platforms
                         })
                     )))   
-            });
-    
+            });    
             await Promise.all(dataGamesApi)
-    
+            
             const dbVideogames = await Videogame.findAll({
                 include: Genre
             });
-                res.status(200).json(dbVideogames.concat(allApiVideogames));
-        } else {
-            // SE PUEDE MEJORAR BUSCANDO CON UN WHERE NANE: name
-            const dbVideogames = await Videogame.findAll({
-                include: Genre
-            });
-            const filterDbVg = dbVideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()));
+            const allData = dbVideogames.concat(allApiVideogames)
 
+            if(rating){
+                if(genre){
+                    // Filter: With Rating and Genre - WithOut Name
+                    const allDataFilterRating = allData.filter((game) => {
+                        if(Math.floor(game.rating) === parseInt(rating)){
+                            return game;
+                        };                    
+                    })
+                    const allDataFilterRatingGenre = allDataFilterRating.filter((game) => {
+                        if(genre !== 'none'){
+                            const aux = []                          
+                            game.genres.length > 0 && game.genres.forEach((g) => {
+                                    aux.push(g.name)                            
+                                })
+                            if(aux.includes(genre)){
+                                return game;
+                            }            
+                        } else {
+                            return game;
+                        }                    
+                    })
+                    res.status(200).json(allDataFilterRatingGenre);
+                } else {
+                    // Filter: With Rating - WithOut Name
+                    const allDataFilterRating = allData.filter((game) => {
+                        if(Math.floor(game.rating) === parseInt(rating)){
+                            return game;
+                        };                    
+                    })
+                    res.status(200).json(allDataFilterRating);
+                }
+
+            } else {
+                if(genre){
+                    // Filter: With Genre - WithOut Name and Rating
+                    const allDataFilterGenre = allData.filter((game) => {
+                        if(genre !== 'none'){
+                            const aux = []                          
+                            game.genres.length > 0 && game.genres.forEach((g) => {
+                                    aux.push(g.name)                            
+                                })
+                            if(aux.includes(genre)){
+                                return game;
+                            }            
+                        } else {
+                            return game;
+                        }                    
+                    })
+                    res.status(200).json(allDataFilterGenre);
+                } else {
+                //Filter: None - WithOut Name, Genre and Rating
+                res.status(200).json(allData);
+                }
+            }
+        // Filter: With Search Name
+        } else {
+            const dbVideogames = await Videogame.findAll({
+                where: {
+                    name: {
+                        [Op.iLike]: '%' + name + '%'
+                    }
+                },
+                include: Genre 
+            });
+            
             const filterApiVg = []
             await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`)
                 .then(res => res.data.results)
@@ -55,11 +114,69 @@ router.get('/', async (req, res, next)=>{
                         platforms: game.platforms
                     })
                 )))
-            const allFilterGames = filterDbVg.concat(filterApiVg)
+            const allFilterGames = dbVideogames.concat(filterApiVg)
 
-            allFilterGames.length > 0
-                ? res.status(200).json(allFilterGames.slice(0, 15))
-                : res.status(400).send("Don't found any Game with this name. Try again please ...");
+            if(rating){
+                if(genre){
+                    // Filter: With Rating, Genre and Name
+                    const allDataFilterRating = allFilterGames.filter((game) => {
+                        if(Math.floor(game.rating) === parseInt(rating)){
+                            return game;
+                        };                    
+                    })
+                    const allDataFilterRatingGenre = allDataFilterRating.filter((game) => {
+                        if(genre !== 'none'){
+                            const aux = []                          
+                            game.genres.length > 0 && game.genres.forEach((g) => {
+                                    aux.push(g.name)                            
+                                })
+                            if(aux.includes(genre)){
+                                return game;
+                            }            
+                        } else {
+                            return game;
+                        }                    
+                    })
+                    allDataFilterRatingGenre.length > 0
+                        ? res.status(200).json(allDataFilterRatingGenre.slice(0, 15))
+                        : res.status(200).send( "Don't found any Game with this name and rating. Try again please ..." );
+                } else {
+                    // Filter: With Rating, Name - WithOut: Genre
+                    const allDataFilterRating = allFilterGames.filter((game) => {
+                        if(Math.floor(game.rating) === parseInt(rating)){
+                            return game;
+                        };                    
+                    })
+                    allDataFilterRating.length > 0
+                            ? res.status(200).json(allDataFilterRating.slice(0, 15))
+                            : res.status(200).send("Don't found any Game with this name and rating. Try again please ...");
+                    }              
+            } else {
+                if(genre){
+                    // Filter: With Genre and Name - WithOut: Rating
+                    const allDataFilterGenre = allFilterGames.filter((game) => {
+                        if(genre !== 'none'){
+                            const aux = []                          
+                            game.genres.length > 0 && game.genres.forEach((g) => {
+                                    aux.push(g.name)                            
+                                })
+                            if(aux.includes(genre)){
+                                return game;
+                            }            
+                        } else {
+                            return game;
+                        }                    
+                    })
+                    allDataFilterGenre.length > 0
+                        ? res.status(200).json(allDataFilterGenre.slice(0, 15))
+                        : res.status(200).send("Don't found any Game with this name and rating. Try again please ...");
+                } else {
+                    // Filter: With Name - WithOut: Genre and Rating                
+                    allFilterGames.length > 0
+                        ? res.status(200).json(allFilterGames.slice(0, 15))
+                        : res.status(400).send("Don't found any Game with this name. Try again please ...");
+                }             
+            }
         }
     } catch (error){
         next(error)
@@ -103,7 +220,13 @@ router.post('/', async (req, res, next)=>{
     const { name, description, released, rating, platforms, genres } = req.body;
     console.log(req.body)
     try{
-        const newVideogame = await Videogame.create(req.body);
+        const newVideogame = await Videogame.create({            
+                name,
+                description,
+                released,
+                rating, 
+                platforms
+            });
         
         let genresId = await Genre.findAll({
             where: { name: genres }

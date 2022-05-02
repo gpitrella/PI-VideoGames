@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import './Welcome.css'
 // import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import { getAllGames } from '../../redux/actions';
+import { getAllGames, getAllGenres } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 
 export class Welcome extends Component {
     componentDidMount(){
         this.props.getAllGames()
-    }    
-    
+        this.props.getAllGenres()
+    }
+
     render(){
         return (
             <header className='welcome'>
@@ -21,16 +22,11 @@ export class Welcome extends Component {
     }    
 };
 
-function mapStateToProps(state){
-    return {
-        allGames: state.allGames
-    }
-};
-
 function mapDispatchToProps(dispatch){
     return {
-        getAllGames: () => dispatch(getAllGames())
+        getAllGames: () => dispatch(getAllGames()),
+        getAllGenres: () => dispatch(getAllGenres()),
     }
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )(Welcome)
+export default connect( null, mapDispatchToProps )(Welcome)

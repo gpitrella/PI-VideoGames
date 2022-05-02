@@ -8,7 +8,8 @@ const router = Router();
 
 router.get('/', async (req, res, next)=>{
     try{
-
+        // DETALLE: CUANDO INICIA TODO AL CARGAR GENEROS DEVUELVE UN ARRAY VACIO, AL SEGUNDO 
+        // PEDIDO DEVUELVE LOS GENEROS CARGADOS
         const dataGenre = await Genre.findAll()
         if(dataGenre.length === 0){
             await axios(`https://api.rawg.io/api/genres?key=${API_KEY}`)
@@ -20,7 +21,8 @@ router.get('/', async (req, res, next)=>{
                         name: g.name
                     }))
                 })
-            res.status(200).send('Generos cargados');
+            const dataGenre1 = await Genre.findAll()
+            res.status(200).json(dataGenre1);
         } else {
             res.status(200).json(dataGenre); 
         } 

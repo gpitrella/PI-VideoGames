@@ -4,13 +4,6 @@ import { createGame, getAllGenres } from '../../redux/actions';
 import './CreateGame.css'
 
 export function CreateGame(props) {
-    
-    React.useEffect(() =>{  
-        if(props.allGenres.length === 0) props.getAllGenres();        
-    }, [props]);
-    
-      
-
     const [ game, setGame ] = React.useState({
         name: '',
         description: '',
