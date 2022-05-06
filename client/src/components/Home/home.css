@@ -1,5 +1,25 @@
 .home {
+    display: flex;
+    flex-direction: row;
+}
+.grid-container {
+    padding-top: 16em;
+    padding-bottom: 5em;
+    padding-left: 1em;
+    padding-right: 10em;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
-    grid-gap: 5em;   
+    grid-template-columns: repeat(auto-fill, minmax(19.5em, 1fr));
+    grid-gap: 3em; 
+    width: 100%;
+    box-sizing: border-box; 
+    -webkit-box-direction: normal;
+    text-rendering: optimizeLegibility; 
+}
+
+.searching{
+    color: azure;
+    font-size: 60px;
+    width: 300px;
+    text-align: center;
+    /* padding: auto; */
 }

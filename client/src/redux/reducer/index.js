@@ -1,4 +1,3 @@
-import { Switch } from "react-router-dom";
 import { 
     GET_ALL_GAMES, 
     GET_GAME_DETAIL, 
@@ -6,17 +5,17 @@ import {
     CLEAR_GAME_DETAIL, 
     GET_ALL_GENRES,
     SEARCH_GAMES,
-    // FILTER_GAMES,
     UPDATE_FILTER_STORE,
     ORDER_BY_NAME, 
-    FILTER_BY_GENRE} from "../actions/actiontype";
+    FILTER_BY_GENRE,
+    CLEAR_FILTER_GAME,
+    FILTER_GAMES_DB_API} from "../actions/actiontype";
 
 const initialState = {
     allGames: [],
     filterGames: [],
     gameDetail: {},
     allGenres: [],
-    // filterByGenre: '',
     dataFilter: {
         rating: 0,
         filterGenre: '',
@@ -84,36 +83,65 @@ const rootReducer = (state = initialState, action) => {
                     return {
                         ...state,
                         filterGames: state.allGames.sort((a, b) => {
-                                const nameA = a.name.toLowerCase();
-                                const nameB = b.name.toLowerCase();
-                                if(nameA < nameB) {
-                                    return 1;
-                                }
-                                if(nameA > nameB) {
-                                    return -1;
-                                }
-                                return 0; 
-                            })                                
+                                            const nameA = a.name.toLowerCase();
+                                            const nameB = b.name.toLowerCase();
+                                            if(nameA < nameB) {
+                                                return -1;
+                                            }
+                                            if(nameA > nameB) {
+                                                return 1;
+                                            }
+                                            return 0; 
+                                        })                                
                     }
                 case 'DEC': 
                     return {
                         ...state,
                         filterGames: state.allGames.sort((a, b) => {
-                                const nameA = a.name.toLowerCase();
-                                const nameB = b.name.toLowerCase();
-                                if(nameA < nameB) {
-                                    return -1;
-                                }
-                                if(nameA > nameB) {
-                                    return 1;
-                                }
-                                return 0; 
-                            })                                
+                                            const nameA = a.name.toLowerCase();
+                                            const nameB = b.name.toLowerCase();
+                                            if(nameA < nameB) {
+                                                return 1;
+                                            }
+                                            if(nameA > nameB) {
+                                                return -1;
+                                            }
+                                            return 0; 
+                                        })                                
                     }
                 default:
                     return state;    
 
-            }    
+            } 
+        case CLEAR_FILTER_GAME:
+            return {
+                ...state,
+                filterGames: []
+            }
+        case FILTER_GAMES_DB_API:
+            switch(action.payload){
+                case 'ALL': 
+                    return {
+                        ...state,
+                    }
+                case 'DB': 
+                    return {
+                        ...state,
+                        filterGames: state.filterGames.length === 0
+                                        ? state.allGames.filter((game) => typeof(game.id) === 'string' )
+                                        : state.filterGames.filter((game) => typeof(game.id) === 'string' )
+                    }
+                case 'API':
+                    return {
+                        ...state,
+                        filterGames: state.filterGames.length === 0
+                                        ? state.allGames.filter((game) => typeof(game.id) === 'number' )
+                                        : state.filterGames.filter((game) => typeof(game.id) === 'number' )
+                    }
+                default:
+                    return state;                   
+
+            }
         default:
             return state;
     };

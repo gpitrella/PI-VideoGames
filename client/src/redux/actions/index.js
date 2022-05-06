@@ -6,10 +6,11 @@ import {
     CLEAR_GAME_DETAIL, 
     GET_ALL_GENRES,
     SEARCH_GAMES,
-    FILTER_GAMES,
     UPDATE_FILTER_STORE,
     ORDER_BY_NAME,
-    FILTER_BY_GENRE } from "./actiontype";
+    FILTER_BY_GENRE,
+    CLEAR_FILTER_GAME,
+    FILTER_GAMES_DB_API } from "./actiontype";
 
 // Get AllGames - API and DB
 export function getAllGames(){
@@ -21,7 +22,6 @@ export function getAllGames(){
 };
 
 // Search Games - API and DB
-// http://localhost:3001/videogame?name=batman&genre=none
 export function searchGames(name, rating, genre){
     return function(dispatch){
         return axios.get('http://localhost:3001/videogame?name=' + name + '&rating=' + rating + '&genre=' + genre)
@@ -52,8 +52,7 @@ export function getGameDetail(idVideogame){
                         game.data.name
                             ?  { type: GET_GAME_DETAIL, payload: game.data} // DB
                             :  { type: GET_GAME_DETAIL, payload: game.data[0]} // API
-                        ))             
-                        
+                        ))           
                     .catch(error => console.log(error))
     }
 };
@@ -84,10 +83,11 @@ export function getAllGenres(){
     }
 };
 
-// Filter Games
-export function filterGames(){
+// Filter Games Origen DB or API
+export function filterGamesDbApi(payload){
     return {
-        type: FILTER_GAMES,        
+        type: FILTER_GAMES_DB_API, 
+        payload: payload       
     }
 };
 
@@ -114,4 +114,11 @@ export function filterByGenre(payload){
         type: FILTER_BY_GENRE,
         payload: payload
     }
-}
+};
+
+// Clear filterGames
+export function clearFilterGames(){
+    return {
+        type: CLEAR_FILTER_GAME,        
+    }
+};

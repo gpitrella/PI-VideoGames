@@ -14,6 +14,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image: {
+      type: DataTypes.STRING,
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -30,13 +33,8 @@ module.exports = (sequelize) => {
       }     
     },
     platforms: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false,
-    },
-    create: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
     }
   }, {
     createdAt: false,

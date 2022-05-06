@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchGames, orderByName, getAllGames } from '../../redux/actions';
+import { searchGames, orderByName, filterGamesDbApi, clearFilterGames } from '../../redux/actions';
+import SearchBar from './SearchBar/SearchBar'
+import searchIcon from './img/searchIcon.png'
+import './SearchGame.css'
 // import GameCard from '../GameCard/GameCard';
 
 export default function SearchGame() {
@@ -12,8 +15,9 @@ export default function SearchGame() {
     const [ genre, setGenre] = React.useState('');
     const [ rating, setRating ] = React.useState('');
     const [ orderAZ, setOrderAZ ] = React.useState('NONE');
+    const [ orderDbApi, setOrderDbApi ] = React.useState('ALL');
+    const [ displayFilter, setDisplayFilter ] = React.useState('none');
     
-
     // Filter SearchBar:
     function handleSearch(e) {
         e.preventDefault();
@@ -35,81 +39,113 @@ export default function SearchGame() {
     function handleOrderAZ(e){
         e.preventDefault();
         setOrderAZ( e.target.value )
-        console.log( orderAZ )
+    }
+
+    // Filter DB or API
+    function handleOrderDbApi(e){
+        e.preventDefault();
+        setOrderDbApi( e.target.value )
     }
 
     // Dispatch Action 
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(searchGames(name, rating, genre));
-        // filterGames = []
-        // dispatch(orderByName(orderAZ));
+    };
+
+    // Dispatch AZ Action
+    function handleSubmitAZandDbAPI(e) {
+        e.preventDefault();
+        // Comeback to None / All
+        if(orderAZ === 'NONE' || orderDbApi === 'ALL'){
+            console.log( `ENTRO A NONE: ${orderAZ}` )
+            dispatch(clearFilterGames());
+            dispatch(searchGames(name, rating, genre));
+        } else {
+            dispatch(clearFilterGames());
+            dispatch(orderByName(orderAZ));            
+            dispatch(filterGamesDbApi(orderDbApi));
+        }
     }; 
 
+    // UpDate allGames when update filters.
      useEffect(() => {
         dispatch(searchGames(name, rating, genre));  
-    },[dispatch, genre, rating ])
+    },[ dispatch, genre, rating ])
 
+    // Update AZ after update allGames
     useEffect(() => {
-        dispatch(orderByName(orderAZ));
+        dispatch(orderByName(orderAZ));    
+        dispatch(filterGamesDbApi(orderDbApi));
         console.log('SEGUNDO: LA ORDENO')          
-    },[allGames])
+    },[allGames]);  
     
     
-    // componentDidUpdate(prevProps, prevState) {
-    //     if(prevState.nameGame !== '' && this.state.nameGame === ''){
-    //         this.props.searchGames(this.state.nameGame, this.state.genreGame);
-    //     }       
-    // }
-        
+    function handleChangeDiplay(){
+        displayFilter === 'none' ? setDisplayFilter('flex') : setDisplayFilter('none');
+    }
         
     return (
         <div>
-            <div>
-                <h3>Search Game</h3>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <input type='text' id='name' autoComplete='off' value={name} onChange={(e) => handleSearch(e)}></input>
-                    <button type='submit'>Search</button>                    
+            <div className='searchBar'>                
+                <form className="search-container">
+                    <input type='text' id='name' placeholder='Search Game ...' autoComplete='off' value={name} onChange={(e) => handleSearch(e)}></input>
+                    <img type='submit' className="search-icon" src={searchIcon} onClick={(e) => handleSubmit(e)}/>
                 </form>
             </div>
-            
-            <div className='filterGenre'>
-                <form className="filterGenre" onSubmit={(e) => handleSubmit(e)}>                
-                    <label> Filter Genres: </label>              
-                    <select type='text'name='filterGenre' onChange={(e) => handleGenre(e)}>
-                        <option value=''>Todos</option>
-                        {allGenres && allGenres.map((g)=>(
-                        <option key={g.id} value={g.name}>{g.name}</option>
-                    ))}                   
-                    </select>
-                    <div>
-                        <button type='submit'>Filter</button>
-                    </div>
-                </form> 
+            <div className='filterOrder'>
+            <button type='submit' className='buttonDisplay' onClick={()=> handleChangeDiplay()}>Filters</button>
+            <div className='filterOrder' style={{display: displayFilter }}>
+                <div className='filterGenre'>
+                    <form className="filterGenre" onSubmit={(e) => handleSubmit(e)}>                
+                        <select type='text'name='filterGenre' onChange={(e) => handleGenre(e)}>
+                            <option value=''>Filter by Genre </option>
+                            {allGenres && allGenres.map((g)=>(
+                            <option key={g.id} value={g.name}>{g.name}</option>
+                        ))}                   
+                        </select>
+                        {/* <div>
+                            <button type='submit'>Filter</button>
+                        </div> */}
+                    </form> 
+                </div>
+
+                <div className='filterStar'>
+                    <form className="rating" onSubmit={(e) => handleSubmit(e)}>             
+                        {/* <label>Filter Rating: </label> */}
+                            <input className='inputStart' placeholder='Filter by Rating' type='number' step="0.01" name='rating' onChange={(e) => handleRating(e)}></input>
+                        <div>
+                            <button type='submit'>Filter</button>
+                        </div>
+                    </form> 
+                </div>  
+
+                <div className='filteraz'>
+                    <form className="filteraz" onSubmit={(e) => handleSubmitAZandDbAPI(e)}> 
+                        {/* <label>Order AZ-ZA:</label>             */}
+                        <select type='text'name='filteraz' onChange={(e) => handleOrderAZ(e)}>
+                            <option value='NONE'>Order by Name</option>
+                            <option value='ASC'>AZ</option>
+                            <option value='DEC'>ZA</option>                                      
+                        </select>
+                        <button type='submit'>Order</button>                
+                    </form> 
+                </div> 
+
+                <div className='filterOrigen'>
+                    <form className="filterOrigen" onSubmit={(e) => handleSubmitAZandDbAPI(e)}> 
+                        {/* <label>Data Base or API</label>             */}
+                        <select type='text'name='filteraz' onChange={(e) => handleOrderDbApi(e)}>
+                                <option value='ALL'>Select Origen</option>
+                                <option value='DB'>DATA BASE</option>
+                                <option value='API'>APi</option>
+                                                                    
+                        </select>
+                        <button type='submit'>Order: </button>                
+                    </form> 
+                </div> 
+            </div>     
             </div>
-
-            <div className='filterStar'>
-                <form className="rating" onSubmit={(e) => handleSubmit(e)}>             
-                    <label>Filter Rating: </label>
-                        <input type='number' step="0.01" name='rating' onChange={(e) => handleRating(e)}></input>
-                    <div>
-                        <button type='submit'>Filter</button>
-                    </div>
-                </form> 
-            </div>  
-
-            <div className='filteraz'>
-            <form className="filteraz" onSubmit={(e) => handleSubmit(e)}> 
-                <label>Order AZ-ZA:</label>            
-                <select type='text'name='filteraz' onChange={(e) => handleOrderAZ(e)}>
-                        <option value='NONE'>None</option>
-                        <option value='ASC'>AZ</option>
-                        <option value='DEC'>ZA</option>                                      
-                </select>
-                <button type='submit'>Order: </button>                
-            </form> 
-        </div>      
-            
         </div>
         
     )

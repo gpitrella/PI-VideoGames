@@ -1,4 +1,96 @@
+.bodyGameCard{
+    background-color: #dfdfdf40;
+    border-radius: 1.6em;
+}
+
+.bodyGameCard:hover{
+    transition: border 1s;
+    border: 2px solid white;
+    box-shadow: 0 0px 10px 10px #5a5a5a60;
+    transition: all 200ms ease-out;
+}
 .imageCard {
-    width: 100px;
-    height: 100px;
+    object-fit: cover;
+    width: 100%;
+    height: 15em;     
+    top: 0;
+    border-top-left-radius: 1.6em;
+    border-top-right-radius: 1.6em;
+    -webkit-box-direction: normal;
+    cursor: pointer;
+    display: block;
+    padding: 0em;    
+}
+.imageCard:hover{
+    height: 15.5em;
+}
+
+.titleCard {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular',  Verdana, sans-serif;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 2px;
+    font-size: 1.5em;
+}
+
+.linkTitle:link {
+    text-decoration: none;
+    color: #FFFFFF;
+  }
+.linkTitle:visited {
+    text-decoration: none;
+    color: #FFFFFF;
+  }
+.linkTitle:hover {
+    text-decoration: none;
+    color: #777777;
+}
+
+.detailCard{
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    position: relative;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 2em; 
+}        
+
+.ratingCard{
+    color: #FFFFFF;
+    font-size: 1.8em;
+}
+
+.starCard{
+    color: yellow;
+    box-shadow: #f7ff8b;
+    font-size: 1.3em;
+}
+
+.genreCard{
+    color: #FFFFFF;
+    font-size: 1.3em; 
+    text-align: right;   
+}
+
+.allGenreCard {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    color: #FFFFFF;
+    font-size: 1.3em;
+}
+
+.checkGenre{
+    color: #8d8d8d;
+    font-size: 0.8em;
+    font-weight: 500;
 }

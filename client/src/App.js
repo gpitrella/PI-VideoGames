@@ -11,8 +11,7 @@ import './App.css';
 function App() {
   return (
     <React.Fragment>
-        <div className="App">
-          <h1>Henry Videogames</h1>
+        <div className="App">          
         </div>
         <Route path="/" exact component={Welcome}/>
         <Route path="/videogame" component={NavBar} />

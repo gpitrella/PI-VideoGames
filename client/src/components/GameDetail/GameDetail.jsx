@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getGameDetail, clearGameDetail } from "../../redux/actions";
 
-export function GameDetail ({ match }){
+export function GameDetail (game){
     const dispatch = useDispatch();
     const { idVideogame } = useParams();
     const gameDetail = useSelector((state) => state.gameDetail)
@@ -14,19 +14,37 @@ export function GameDetail ({ match }){
             dispatch(clearGameDetail())
         }
     }, [dispatch, idVideogame]);
-    
-    return (
-        <>
-            {gameDetail.name ?
-                <div>
-                    <h3>{gameDetail.name}</h3>
-                    <p>{gameDetail.description}</p>
-                    <p>{gameDetail.released}</p>
-                </div>
-                : (<h3>Charging ...</h3>)
-            }
-        </>
-    )
+    console.log(game)
+    if(game.game){
+        return (
+            <div>
+                {game.game.name ?
+                    <div>
+                        <h1>GAME CREATED SUCCEFULLY</h1>
+                        <h3>{game.game.name}</h3>
+                        <p>{game.game.description}</p>
+                        <p>{game.game.released}</p>
+                    </div>
+                    : (<h3>Charging ...</h3>)
+                }
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                
+                {gameDetail.name ?
+                    <div>
+                        <h3>{gameDetail.name}</h3>
+                        <p>{gameDetail.description}</p>
+                        <p>{gameDetail.released}</p>
+                    </div>
+                    : (<h3>Charging ...</h3>)
+                }
+            </div>
+        )
+
+    }
 }
 
 export default GameDetail;

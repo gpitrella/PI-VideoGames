@@ -10,10 +10,10 @@ const router = Router();
 router.get('/', async (req, res, next)=>{
     
     try{
-        const { name, rating, genre, creator } = req.query;
+        const { name, rating, genre } = req.query;
         if(!name){
             const allApiVideogames = []
-            let dataGamesApi = [1].map((n) => {
+            let dataGamesApi = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => {
                 return axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=${n}`)
                     .then(res => res.data.results)
                     .then(res => res.map(game => (
@@ -174,7 +174,7 @@ router.get('/', async (req, res, next)=>{
                     // Filter: With Name - WithOut: Genre and Rating                
                     allFilterGames.length > 0
                         ? res.status(200).json(allFilterGames.slice(0, 15))
-                        : res.status(400).send("Don't found any Game with this name. Try again please ...");
+                        : res.status(200).send("Don't found any Game with this name. Try with other name please ...");
                 }             
             }
         }
@@ -201,7 +201,9 @@ router.get('/:idVideogame', async (req, res, next) => {
                             image: game.data.background_image,
                             platforms: game.data.platforms
                         })
-                    res.status(200).json(idApiVideogame)
+                    idApiVideogame.length === 0
+                        ? res.status(200).send('API: Game dont exist, try with other game')
+                        : res.status(200).json(idApiVideogame)
                 });                
         } else {
             const dbIdVideogame = await Videogame.findByPk(idVideogame, {
@@ -209,7 +211,7 @@ router.get('/:idVideogame', async (req, res, next) => {
             });
             dbIdVideogame
                 ? res.status(200).json(dbIdVideogame)
-                : res.status(404).send("DB: Game don't exist, try with other game.");
+                : res.status(200).send("DB: Game don't exist, try with other game.");
         }
     } catch (error) {
         next(error);
@@ -217,22 +219,24 @@ router.get('/:idVideogame', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next)=>{
-    const { name, description, released, rating, platforms, genres } = req.body;
+    const { name, description, image, released, rating, platforms, genres } = req.body;
     console.log(req.body)
     try{
         const newVideogame = await Videogame.create({            
                 name,
                 description,
+                image,
                 released,
                 rating, 
                 platforms
             });
-        
-        let genresId = await Genre.findAll({
-            where: { name: genres }
+        genres.map(async (genre) => {
+            let genresId = await Genre.findAll({
+                where: { name: genre }
+            })
+            newVideogame.addGenre(genresId);
         })
 
-        newVideogame.addGenre(genresId);
         res.status(200).send(newVideogame);
     } catch (error){
         next(error)

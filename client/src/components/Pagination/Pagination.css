@@ -1,0 +1,52 @@
+.pagination {
+    display: inline-block;
+    padding-top: 4.5em;    
+}
+.titlePage {
+    color: rgba(245, 245, 245, 0.637);
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 55px;
+    padding-bottom: 10px;
+    height: 50px;
+    width: 0px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.itemPoint{
+    color: rgba(0, 0, 0, 0);
+
+}
+
+.item {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular',  Verdana, sans-serif;
+    margin: 3px;
+    height: 50px;
+    width: 70px;
+    background-color: rgba(173, 173, 173, 0.242);
+    border: 2px solid rgb(134, 134, 134);
+    border-radius: 4px;
+    display: inline-block;
+    color: rgba(245, 245, 245, 0.637);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: 1px;
+    margin: 5px;
+    overflow: hidden;
+    padding:auto;
+    text-align: center;
+    text-transform: uppercase;
+    /* transition: all .2s ease-in-out; */
+}
+
+.item:active {
+    background-color: #e9e9e9;
+    color: rgb(58, 58, 58);
+}
+
+.item:hover:not(active){
+    background-color: rgba(185, 185, 185, 0.801);
+    color: rgb(58, 58, 58);
+}

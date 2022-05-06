@@ -4,24 +4,28 @@ import { getAllGames, getAllGenres } from '../../redux/actions';
 import { connect } from 'react-redux';
 import SearchGame from '../SearchGame/SearchGame'
 import './NavBar.css'
+import imageLogo from './img/controllerIconGame.png'
 
 export function NavBar(props) {
     
     React.useEffect(() =>{
-        if(props.allGames.length === 0) props.getAllGames();
-        if(props.getAllGenres.length === 0) props.getAllGenres();
-    })
+            if(props.allGenres.length === 0) {
+            props.getAllGenres();
+        }
+    }, [props.allGenres])
     
     return (
-        <header className='navbar'>
-            <div>
-                <Link to="/videogame">Home</Link>
+        <header className='header'>
+            <div className='navbar'>
+                <div className='navBarLogo'>
+                    <Link to="/videogame"><img className="imageLogo" src={imageLogo} alt='game Logo' /></Link>
+                </div>
+                <div>
+                    <Link className="createGameNavBar"to="/videogame/creategame">Create Game</Link>
+                </div>
             </div>
             <div>
                 <SearchGame /> 
-            </div>
-            <div>
-                <Link to="/videogame/creategame">Create Game</Link>
             </div>
         </header>
     )
@@ -29,7 +33,8 @@ export function NavBar(props) {
 
 function mapStateToProps(state){
     return {
-        allGames: state.allGames
+        allGames: state.allGames,
+        allGenres: state.allGenres
     }
 };
 
@@ -41,4 +46,3 @@ function mapDispatchToProps(dispatch){
 };
 
 export default connect( mapStateToProps, mapDispatchToProps )(NavBar)
-
