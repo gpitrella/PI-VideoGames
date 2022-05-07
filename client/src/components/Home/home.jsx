@@ -58,7 +58,7 @@ export function Home(props) {
                 typeof(props.allGames) === 'string'
                     ? <h2>{props.allGames}</h2>
                     : props.allGames.length === 0
-                        ? <h2 className='searching'>👁‍🗨 Searching ...</h2>
+                        ? <h2 className='searching'> 👁‍🗨 Searching ...</h2>
                         : props.filterGames.length > 0 
                             ? currentAllFilterGames.map(game => (
                                 <GameCard className='mainCard'
@@ -67,7 +67,8 @@ export function Home(props) {
                                     image = {game.image}
                                     id = {game.id} 
                                     genres = {game.genres} 
-                                    key = {game.id}             
+                                    key = {game.id}
+                                             
                                 />   
                             ))                        
                             : currentAllGames.map(game => (
@@ -77,7 +78,8 @@ export function Home(props) {
                                     image = {game.image}
                                     id = {game.id} 
                                     genres = {game.genres} 
-                                    key = {game.id}             
+                                    key = {game.id} 
+                                                 
                                 />   
                             ))              
             }

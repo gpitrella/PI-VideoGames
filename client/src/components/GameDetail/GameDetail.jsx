@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getGameDetail, clearGameDetail } from "../../redux/actions";
+import style from './GameDetail.module.css'
 
 export function GameDetail (game){
     const dispatch = useDispatch();
@@ -17,29 +18,72 @@ export function GameDetail (game){
     console.log(game)
     if(game.game){
         return (
-            <div>
+            <div className={style.bodyDetail}>
                 {game.game.name ?
-                    <div>
-                        <h1>GAME CREATED SUCCEFULLY</h1>
-                        <h3>{game.game.name}</h3>
-                        <p>{game.game.description}</p>
-                        <p>{game.game.released}</p>
+                        <div>
+                        <h1 className={style.titleDetail}> ✅ GAME CREATED SUCCEFULLY 🎮</h1>
+                        <h3 className={style.titleDetail}> ⭕️ {game.game.name}</h3>
+                        <div className={style.cardDetail}>
+                            <img className={style.imageDetail} src={game.game.image} alt={game.game.name} />
+                            <span className={style.descriptionDetailTitle}> Details: 
+                                <p className={style.dateReleased}> 🌀 Released Date: {game.game.released}</p>
+                                <p className={style.dateReleased}> 🌀 Rating: ⭐️ {game.game.rating}</p>
+                                <div className={style.genresPlatforms}>
+                                    <p className={style.genreDetail}> 🌀 Genres: 
+                                        <p>{game.game.genres?.map(genre =>(
+                                            <p className={style.dateGenre} key={Math.random()*1000/8*3}>  -- {genre}</p>
+                                        ))}</p>
+                                    </p>
+                                    <p className={style.platformDetail}> 🌀 Platforms: 
+                                        <p >{game.game.platforms?.map(p =>(
+                                            <p className={style.dateGenre} key={Math.random()*1000/8*3}>  -- {p.platform.name}</p>
+                                        ))}</p> 
+                                    </p>                            
+                                </div>
+                            </span>
+                        </div>
+                            <p className={style.description}>
+                                <p className={style.descriptionTitle}>Description: </p>
+                                <br></br>
+                                {game.game.description}
+                            </p>
                     </div>
-                    : (<h3>Charging ...</h3>)
+                    : (<h2 className={style.charging}> 👁‍🗨 Charging ... </h2>)
                 }
             </div>
         )
     } else {
         return (
-            <div>
-                
+            <div className={style.bodyDetail}>                
                 {gameDetail.name ?
                     <div>
-                        <h3>{gameDetail.name}</h3>
-                        <p>{gameDetail.description}</p>
-                        <p>{gameDetail.released}</p>
+                        <h3 className={style.titleDetail}>⭕️ {gameDetail.name}</h3>
+                        <div className={style.cardDetail}>
+                            <img className={style.imageDetail} src={gameDetail.image} alt={gameDetail.name} />
+                            <span className={style.descriptionDetailTitle}> Details: 
+                                <p className={style.dateReleased}> 🌀 Released Date: {gameDetail.released}</p>
+                                <p className={style.dateReleased}> 🌀 Rating: ⭐️ {gameDetail.rating}</p>
+                                <div className={style.genresPlatforms}>
+                                    <p className={style.genreDetail}> 🌀 Genres: 
+                                        <p>{gameDetail.genres?.map(genre =>(
+                                            <p className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}>  -- {genre.name}</p>
+                                        ))}</p>
+                                    </p>
+                                    <p className={style.platformDetail}> 🌀 Platforms: 
+                                        <p >{gameDetail.platforms?.map(p =>(
+                                            <p className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}>  -- {p.platform.name}</p>
+                                        ))}</p> 
+                                    </p>                            
+                                </div>
+                            </span>
+                        </div>
+                            <p className={style.description}>
+                                <p className={style.descriptionTitle}>Description: </p>
+                                <br></br>
+                                {gameDetail.description.replaceAll('<p>','').replaceAll('<br>','').replaceAll('<br />','').replaceAll('</p>','')}
+                            </p>
                     </div>
-                    : (<h3>Charging ...</h3>)
+                    : (<h2 className={style.charging}> 👁‍🗨 Charging ... </h2>)
                 }
             </div>
         )

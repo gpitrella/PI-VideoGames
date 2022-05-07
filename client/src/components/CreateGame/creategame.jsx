@@ -64,12 +64,15 @@ export function CreateGame(props) {
     // Platforms Control
     function handleChangePlatforms(e) {
        
-        const currentPlatforms = game.platforms.includes(e.target.value)
+        const currentPlatforms = []
+        game.platforms.length > 0 && game.platforms.map((p)=>{
+            currentPlatforms.push(p.platform.name)
+        })
         console.log(currentPlatforms)
-        if(!currentPlatforms){
+        if(!currentPlatforms.includes(e.target.value)){
             setGame({
                 ...game,
-                platforms: [...game.platforms, e.target.value ]
+                platforms: [...game.platforms, { platform: { name: e.target.value } } ]
             })
         }
         
@@ -77,7 +80,9 @@ export function CreateGame(props) {
 
     // Clear Platfrom
     function clearPlatform(e){
-        const editPlatforms = game.platforms.filter((p) => p !== e.target.value)
+        const editPlatforms = game.platforms.filter((p) => {
+            return p.platform.name !== e.target.value;
+        })
         setGame({
             ...game,
             platforms: editPlatforms
@@ -113,10 +118,10 @@ export function CreateGame(props) {
         }
         if(game.description === '' || game.description === null){
             gamesErrors.description = 'Is necessary include the description.'
+        }       
+        if(!/https?:[^\s]+/.test(game.image)){
+            gamesErrors.image = 'Is necessary include a valid image link.'
         }
-        // if(game.image === '' || game.image === null){
-        //     gamesErrors.image = 'Is necessary include an image.'
-        // }
         if(!/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[1-9]|2[1-9])$/.test(game.released)){
             gamesErrors.released = 'Invalid date form.'
         }
@@ -226,9 +231,8 @@ export function CreateGame(props) {
                             <option value="Commodore / Amiga">Commodore / Amiga</option>                     
                         </select>
                         <ul>
-                            {game.platforms && game.platforms.map((element)=>(
-                                
-                                    <button key={game.platforms.indexOf(element)} value={element} onClick={(e) => clearPlatform(e)}>{element} X </button>
+                            {game.platforms.length > 0 && game.platforms.map((element)=>(
+                                    <button key={game.platforms.indexOf(element)} value={element.platform.name} onClick={(e) => clearPlatform(e)}> X - {element.platform.name}  </button>
                                 
                             ))}
                         </ul>                       
@@ -250,7 +254,7 @@ export function CreateGame(props) {
                         
                 <br></br>
                 <div>
-                <button type='submit'>Create Game</button>{dataErrors.withErrors && (<span className='danger'>Please check all Errors, before to submit.</span>)}
+                <button className='buttonCreate' type='submit'>Create Game</button>{dataErrors.withErrors && (<span className='danger'>Please check all Errors, before to submit.</span>)}
                         {created.game && (<p>Game created successfully, Greate.!!!</p>)}
                 </div>
             </form>

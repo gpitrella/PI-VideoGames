@@ -30,4 +30,3 @@ export default function GameCard({ name, rating, image, id, genres }){
         </div>
     );
 };
-

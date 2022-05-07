@@ -5,11 +5,11 @@
 .grid-container {
     padding-top: 16em;
     padding-bottom: 5em;
-    padding-left: 1em;
-    padding-right: 10em;
+    padding-left: 0em;
+    padding-right: 7em;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(19.5em, 1fr));
-    grid-gap: 3em; 
+    grid-template-columns: repeat(auto-fill, minmax(17em, 1fr));
+    grid-gap: 1em; 
     width: 100%;
     box-sizing: border-box; 
     -webkit-box-direction: normal;
@@ -21,5 +21,4 @@
     font-size: 60px;
     width: 300px;
     text-align: center;
-    /* padding: auto; */
 }
