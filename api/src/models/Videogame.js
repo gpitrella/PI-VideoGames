@@ -13,6 +13,17 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isEven(value) {	
+          if (value === '' || value === ' ' || value === undefined || value === null) {    
+            throw new Error('Name: Not allow empty Name!');    
+          } else if (/[^a-zA-Z0-9 ]/g.test(value)){
+            throw new Error('Name: Not allow symbol(#$%-//!...)!');
+          }
+        }
+      },
+      notEmpty: true,
+      isAlphanumeric: true
     },
     image: {
       type: DataTypes.STRING,
@@ -20,6 +31,14 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        isEven(value) {	
+          if (value === '' || value === ' ' || value === undefined || value === null) {    
+            throw new Error('Description: Not allow empty data!');    
+          }    
+        }
+      },
+      notEmpty: true
     },
     released: {
       type: DataTypes.DATEONLY,

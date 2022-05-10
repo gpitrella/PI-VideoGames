@@ -7,7 +7,7 @@ body{
 
 .header{
     background-color: rgba(169, 169, 169, 0.15);
-    padding: 1em;
+    padding: 0em 3em;
     position: fixed;
     width: 100%;
 }
@@ -21,16 +21,17 @@ body{
 }
 
 .imageLogo {
-    width: 6rem;
-    height: 6rem;
+    width: 5.2rem;
+    height: 5.2rem;
     position: absolute;
-	padding: 15px 10px 30px 10px;
+	padding: 0px;
+
     top: 2em;
     left: 20vw;
 }
 .imageLogo:hover {
-    width: 6.05rem;
-    height: 6.05rem;
+    width: 5.3rem;
+    height: 5.3rem;
     cursor: pointer;
 }
 
@@ -39,11 +40,12 @@ body{
     color: #FFFFFF;
     text-align: center;
     padding-bottom: 2px;
-    font-size: 1.5em;
+    font-size: 1.4em;
     position: absolute;
-	padding: 40px 10px 30px 10px;
+	padding: 35px 10px 30px 10px;
+    margin-right: 80px;
     top: 0.4em;
-    right: 14vw;
+    right: 15vw;
 }
 
 .createGameNavBar:link {

@@ -113,8 +113,8 @@ export function CreateGame(props) {
     // Function Validator
     function validate (game){
         const gamesErrors = {}
-        if(game.name === '' || game.name === null){
-            gamesErrors.name = 'Is necessary include a name.'
+        if(game.name === '' || game.name === null || /[^a-zA-Z0-9 ]/g.test(game.name)){
+            gamesErrors.name = 'Is necessary include a name without Symbols.'
         }
         if(game.description === '' || game.description === null){
             gamesErrors.description = 'Is necessary include the description.'
@@ -172,15 +172,15 @@ export function CreateGame(props) {
             <h2 className='title'>Create Game</h2>
             <form onSubmit={e => handleOnSubmit(e)}> 
                 <label className='labelInput'> Game' Name: </label>{dataErrors.name && (<span className='danger'>{dataErrors.name}</span>)}
-                    <input className='inputCreate' type='text' name='name' onChange={(e) => handleChangeName(e)}></input>                   
+                    <input className='inputCreate' placeholder='Enter Game Name, without symbols.' type='text' name='name' onChange={(e) => handleChangeName(e)}></input>                   
                 
                 <br></br>
                 <label className='labelInput'> Description: </label>{dataErrors.description && (<span className='danger'>{dataErrors.description}</span>)}
-                    <input className={errors.description ? 'danger' : 'inputDescription'} type='text' name='description' onChange={(e) => handleChangeDescription(e)}></input>
+                    <input className={errors.description ? 'danger' : 'inputDescription'} placeholder='Enter a game description' type='text' name='description' onChange={(e) => handleChangeDescription(e)}></input>
                 
                 <br></br>
                 <label className='labelInput'> Image: </label> {dataErrors.image && (<span className='danger'>{dataErrors.image}</span>)}
-                    <input className={errors.image ? 'danger' : 'inputCreate'} type='text' name='image' onChange={(e) => handleChangeImage(e)}></input>
+                    <input className={errors.image ? 'danger' : 'inputCreate'} placeholder='Insert a link to game image.' type='text' name='image' onChange={(e) => handleChangeImage(e)}></input>
                 <div className='labelmiddle'>
                     <div className='labelmiddleReleased'>
                         <label className='labelInput'> Date Released: </label> {dataErrors.released && (<span className='danger'>{dataErrors.released}</span>)}
@@ -191,7 +191,7 @@ export function CreateGame(props) {
                     <div>
                     <label className='labelInput'> Rating: </label>{dataErrors.rating && (<span className='danger'>{dataErrors.rating}</span>)}
                     <br></br>
-                        <input className='inputRealased' type='number' name='rating' onChange={(e) => handleChangeRating(e)}></input>
+                        <input className='inputRealased' type='number' name='rating' placeholder='Insert a rating between 1-5.' onChange={(e) => handleChangeRating(e)}></input>
                     </div>
                 </div>
                 <br></br>

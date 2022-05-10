@@ -56,7 +56,11 @@ router.get('/', async (req, res, next)=>{
                             return game;
                         }                    
                     })
-                    res.status(200).json(allDataFilterRatingGenre);
+                    if(allDataFilterRatingGenre.length === 0){
+                        res.status(200).send(`Don't find any game with this filter (Genre and Rating).`);
+                    } else {
+                        res.status(200).json(allDataFilterRatingGenre);
+                    }
                 } else {
                     // Filter: With Rating - WithOut Name
                     const allDataFilterRating = allData.filter((game) => {
@@ -64,7 +68,11 @@ router.get('/', async (req, res, next)=>{
                             return game;
                         };                    
                     })
-                    res.status(200).json(allDataFilterRating);
+                    if(allDataFilterRating.length === 0){
+                        res.status(200).send(`Don't find any game with this filter (Rating).`);
+                    } else {
+                        res.status(200).json(allDataFilterRating);
+                    }
                 }
 
             } else {
@@ -83,7 +91,13 @@ router.get('/', async (req, res, next)=>{
                             return game;
                         }                    
                     })
-                    res.status(200).json(allDataFilterGenre);
+
+                    if(allDataFilterGenre.length === 0){
+                        res.status(200).send(`Don't find any game with this filter (Genre).`);
+                    } else {
+                        res.status(200).json(allDataFilterGenre);
+                    }
+
                 } else {
                 //Filter: None - WithOut Name, Genre and Rating
                 res.status(200).json(allData);
@@ -236,7 +250,6 @@ router.post('/', async (req, res, next)=>{
             })
             newVideogame.addGenre(genresId);
         })
-
         res.status(200).send(newVideogame);
     } catch (error){
         next(error)

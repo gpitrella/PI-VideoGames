@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Welcome.css'
+import style from './Welcome.module.css'
 import { connect } from 'react-redux';
 import { getAllGames, getAllGenres } from '../../redux/actions';
 import { Link } from 'react-router-dom';
@@ -12,12 +12,12 @@ export class Welcome extends Component {
 
     render(){
         return (
-            <header className='welcome'>
-                <div className='welcomeTitle'>
+            <header className={style.welcome}>
+                <div className={style.welcomeTitle}>
                     <h1>WELCOME TO THE GAME</h1>
                 </div> 
-                <div className='divLink'>
-                    <Link className='linkStart' to="/videogame">START</Link>
+                <div className={style.divLink}>
+                    <Link className={style.linkStart} to="/videogame">START</Link>
                 </div>          
              </header>
         )

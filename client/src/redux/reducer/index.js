@@ -5,11 +5,11 @@ import {
     CLEAR_GAME_DETAIL, 
     GET_ALL_GENRES,
     SEARCH_GAMES,
-    UPDATE_FILTER_STORE,
     ORDER_BY_NAME, 
     FILTER_BY_GENRE,
     CLEAR_FILTER_GAME,
-    FILTER_GAMES_DB_API} from "../actions/actiontype";
+    FILTER_GAMES_DB_API,
+    ORDER_BY_STAR} from "../actions/actiontype";
 
 const initialState = {
     allGames: [],
@@ -62,11 +62,6 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allGenres: action.payload              
-            }
-        case UPDATE_FILTER_STORE:
-            return {
-                ...state,
-                dataFilter: action.payload
             }
         case FILTER_BY_GENRE:
             return {
@@ -142,6 +137,63 @@ const rootReducer = (state = initialState, action) => {
                     return state;                   
 
             }
+        case ORDER_BY_STAR:
+            switch(action.payload){
+                case 'NONE': 
+                    return {
+                        ...state,
+                    }
+                case 'WORST': 
+                    return {
+                        ...state,
+                        filterGames: state.filterGames.length === 0
+                                        ? state.allGames.sort((a, b) => {
+                                            if(a.rating < b.rating) {
+                                                return -1;
+                                            }
+                                            if(a.rating > b.rating) {
+                                                return 1;
+                                            }
+                                            return 0; 
+                                        })
+                                        : state.filterGames.sort((a, b) => {
+                                            if(a.rating < b.rating) {
+                                                return -1;
+                                            }
+                                            if(a.rating > b.rating) {
+                                                return 1;
+                                            }
+                                            return 0; 
+                                        })                             
+                    }
+                case 'BEST': 
+                    return {
+                        ...state,
+                        filterGames: state.filterGames.length === 0
+                            ? state.allGames.sort((a, b) => {
+                                if(a.rating < b.rating) {
+                                    return 1;
+                                }
+                                if(a.rating > b.rating) {
+                                    return -1;
+                                }
+                                return 0; 
+                            })
+                            : state.filterGames.sort((a, b) => {
+                                if(a.rating < b.rating) {
+                                    return 1;
+                                }
+                                if(a.rating > b.rating) {
+                                    return -1;
+                                }
+                                return 0; 
+                            })                             
+    }
+                default:
+                    return state;    
+    
+                } 
+
         default:
             return state;
     };

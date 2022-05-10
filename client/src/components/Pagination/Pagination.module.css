@@ -2,14 +2,13 @@
     display: inline-block;
     padding-top: 4.5em;    
 }
-.titlePage {
+.buttonTitlePagePagination {
     color: rgba(245, 245, 245, 0.637);
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    padding-left: 55px;
-    padding-bottom: 10px;
+    padding-left: 18px;
     height: 50px;
-    width: 0px;
+    width: 100px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -21,24 +20,23 @@
 .item {
     font-family: 'Lucida Sans', 'Lucida Sans Regular',  Verdana, sans-serif;
     margin: 3px;
-    height: 50px;
+    height: 40px;
     width: 70px;
     background-color: rgba(173, 173, 173, 0.242);
     border: 2px solid rgb(134, 134, 134);
-    border-radius: 4px;
+    border-radius: 6px;
     display: inline-block;
     color: rgba(245, 245, 245, 0.637);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    line-height: 40px;
+    line-height: 30px;
     letter-spacing: 1px;
     margin: 5px;
     overflow: hidden;
     padding:auto;
     text-align: center;
     text-transform: uppercase;
-    /* transition: all .2s ease-in-out; */
 }
 
 .item:active {

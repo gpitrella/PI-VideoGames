@@ -6,11 +6,11 @@ import {
     CLEAR_GAME_DETAIL, 
     GET_ALL_GENRES,
     SEARCH_GAMES,
-    UPDATE_FILTER_STORE,
     ORDER_BY_NAME,
     FILTER_BY_GENRE,
     CLEAR_FILTER_GAME,
-    FILTER_GAMES_DB_API } from "./actiontype";
+    FILTER_GAMES_DB_API,
+    ORDER_BY_STAR } from "./actiontype";
 
 // Get AllGames - API and DB
 export function getAllGames(){
@@ -38,11 +38,9 @@ export function searchGames(name, rating, genre){
 // export function searchGames(nameGame, genre){
 //     return async function(dispatch){
 //         var json = await axios.get('http://localhost:3001/videogame?name=' + nameGame + '&order=' + genre)
-    
 //     return dispatch({ type: SEARCH_GAMES, payload: json.data});                       
 //     };
 // }
-
 
 // Get Game Detail - API and DB
 export function getGameDetail(idVideogame){
@@ -91,14 +89,6 @@ export function filterGamesDbApi(payload){
     }
 };
 
-// Update Filter Store
-export function filterUpStore(payload){
-    return {
-        type: UPDATE_FILTER_STORE,
-        payload: payload
-    }
-}
-
 // Order by Name
 export function orderByName(payload){
     console.log(payload)
@@ -122,3 +112,11 @@ export function clearFilterGames(){
         type: CLEAR_FILTER_GAME,        
     }
 };
+
+// Order by Star:
+export function orderByStar(payload){
+    return {
+        type: ORDER_BY_STAR,
+        payload: payload
+    }
+}

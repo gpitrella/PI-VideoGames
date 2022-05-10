@@ -5,7 +5,7 @@
 .grid-container {
     padding-top: 16em;
     padding-bottom: 5em;
-    padding-left: 0em;
+    padding-left: 1em;
     padding-right: 7em;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(17em, 1fr));
@@ -16,9 +16,28 @@
     text-rendering: optimizeLegibility; 
 }
 
+.allYourGames{
+    color: azure;
+    font-size: 23px;
+    top: 205px;
+    left: 150px;
+    position: absolute;    
+    text-align: center;
+}
 .searching{
     color: azure;
-    font-size: 60px;
-    width: 300px;
+    font-size: 50px;
+    top: 160px;
+    width: 85%;
+    position: absolute;    
+    text-align: center;
+}
+
+.dontFoundSearching{
+    color: azure;
+    font-size: 30px;
+    top: 280px;
+    width: 90%;
+    position: absolute;    
     text-align: center;
 }

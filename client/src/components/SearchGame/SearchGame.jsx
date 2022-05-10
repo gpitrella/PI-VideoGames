@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchGames, orderByName, filterGamesDbApi, clearFilterGames } from '../../redux/actions';
-import SearchBar from './SearchBar/SearchBar'
+import { searchGames, orderByName, filterGamesDbApi, clearFilterGames, orderByStar } from '../../redux/actions';
 import searchIcon from './img/searchIcon.png'
 import './SearchGame.css'
 // import GameCard from '../GameCard/GameCard';
@@ -15,6 +14,7 @@ export default function SearchGame() {
     const [ genre, setGenre] = React.useState('');
     const [ rating, setRating ] = React.useState('');
     const [ orderAZ, setOrderAZ ] = React.useState('NONE');
+    const [ orderStar, setOrderStar ] = React.useState('NONE');
     const [ orderDbApi, setOrderDbApi ] = React.useState('ALL');
     const [ displayFilter, setDisplayFilter ] = React.useState('none');
     
@@ -45,7 +45,13 @@ export default function SearchGame() {
     function handleOrderDbApi(e){
         e.preventDefault();
         setOrderDbApi( e.target.value )
-    }
+    };
+
+    // Order by Star
+    function handleOrderStar(e){
+        e.preventDefault();
+        setOrderStar( e.target.value )
+    };
 
     // Dispatch Action 
     function handleSubmit(e) {
@@ -57,14 +63,18 @@ export default function SearchGame() {
     function handleSubmitAZandDbAPI(e) {
         e.preventDefault();
         // Comeback to None / All
-        if(orderAZ === 'NONE' || orderDbApi === 'ALL'){
+        if(orderAZ === 'NONE' || orderDbApi === 'ALL' || orderStar === 'NONE'){
             console.log( `ENTRO A NONE: ${orderAZ}` )
             dispatch(clearFilterGames());
             dispatch(searchGames(name, rating, genre));
+            dispatch(orderByName(orderAZ));            
+            dispatch(filterGamesDbApi(orderDbApi));
+            dispatch(orderByStar(orderStar));
         } else {
             dispatch(clearFilterGames());
             dispatch(orderByName(orderAZ));            
             dispatch(filterGamesDbApi(orderDbApi));
+            dispatch(orderByStar(orderStar));
         }
     }; 
 
@@ -77,10 +87,11 @@ export default function SearchGame() {
     useEffect(() => {
         dispatch(orderByName(orderAZ));    
         dispatch(filterGamesDbApi(orderDbApi));
+        dispatch(orderByStar(orderStar));
         console.log('SEGUNDO: LA ORDENO')          
     },[allGames]);  
     
-    
+    // Display filter:
     function handleChangeDiplay(){
         displayFilter === 'none' ? setDisplayFilter('flex') : setDisplayFilter('none');
     }
@@ -90,7 +101,7 @@ export default function SearchGame() {
             <div className='searchBar'>                
                 <form className="search-container">
                     <input type='text' id='name' placeholder='Search Game ...' autoComplete='off' value={name} onChange={(e) => handleSearch(e)}></input>
-                    <img type='submit' className="search-icon" src={searchIcon} onClick={(e) => handleSubmit(e)}/>
+                    <img type='submit' className="search-icon" src={searchIcon} alt='icono search' onClick={(e) => handleSubmit(e)}/>
                 </form>
             </div>
             <div className='filterOrder'>
@@ -104,16 +115,22 @@ export default function SearchGame() {
                             <option key={g.id} value={g.name}>{g.name}</option>
                         ))}                   
                         </select>
-                        {/* <div>
-                            <button type='submit'>Filter</button>
-                        </div> */}
                     </form> 
                 </div>
 
                 <div className='filterStar'>
                     <form className="rating" onSubmit={(e) => handleSubmit(e)}>             
-                        {/* <label>Filter Rating: </label> */}
-                            <input className='inputStart' placeholder='Filter by Rating' type='number' step="0.01" name='rating' onChange={(e) => handleRating(e)}></input>
+                            {/* <input className='inputStart' placeholder='Filter by Rating' type='number' step="0.01" name='rating' onChange={(e) => handleRating(e)}></input> */}
+                            <select className='inputStart' type='number' name='rating' onChange={(e) => handleRating(e)}>
+                                <option value=''>Select Star</option>
+                                <option value='0'>Without ★</option>
+                                <option value='1'>★</option>
+                                <option value='2'>★★</option>
+                                <option value='3'>★★★</option>
+                                <option value='4'>★★★★</option>
+                                <option value='5'>★★★★★</option>
+                                                                    
+                        </select>
                         <div>
                             <button type='submit'>Filter</button>
                         </div>
@@ -142,6 +159,17 @@ export default function SearchGame() {
                                                                     
                         </select>
                         <button type='submit'>Order: </button>                
+                    </form> 
+                </div> 
+
+                <div className='filteraz'>
+                    <form className="filteraz" onSubmit={(e) => handleSubmitAZandDbAPI(e)}> 
+                        <select type='text'name='filteraz' onChange={(e) => handleOrderStar(e)}>
+                            <option value='NONE'>Order by Star</option>
+                            <option value='BEST'>BEST</option>
+                            <option value='WORST'>WORST</option>                                      
+                        </select>
+                        <button type='submit'>Order</button>                
                     </form> 
                 </div> 
             </div>     

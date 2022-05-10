@@ -16,12 +16,19 @@ input#name{
     height: 45px;
     padding: 0 20px;
     font-size: 1rem;
+    color: aliceblue;
     background-color: rgba(169, 169, 169, 0.527);
     border: 1px solid #D0CFCE;
     border-radius: 25px;
     outline: none;
     margin-top: -20px;
     margin-bottom: 30px;
+    margin-left: -30px;
+}
+
+::placeholder { 
+  color: rgba(202, 202, 202, 0.733);
+  opacity: 1; 
 }
 
 .buttonDisplay{
@@ -29,34 +36,37 @@ input#name{
   color: #FFFFFF;
   background-color: rgba(128, 128, 128, 0.377);
   text-align: center;
-  padding: 5px 40px;
-  height: 40px;
-  font-size: 1.1em;
+  padding: 1px 40px;
+  height: 35px;
+  font-size: 1em;
   position: absolute;
   top: -2em;
-  right: 17vw;
+  right: 20vw;
 }
 
 button{
   background-color: rgb(167, 167, 167);
   border-radius: 8px;
+  padding-top: 0;
   height: 40px;
 }
 
 .rating{
   display: flex;
   flex-direction: row;
-  
+  padding: 0;  
 }
 
 .filteraz{
   display: flex;
   flex-direction: row;
+  padding: 0;
 }
 
 .filterOrigen{
   display: flex;
   flex-direction: row;
+  padding: 0;
 }
 
 .search-icon{
@@ -65,7 +75,7 @@ button{
     width: 25px;
     height: 25px;
     top: -65px;
-    right: -25px;    
+    right: 5px;    
 }
 
 .search-icon:hover{
@@ -82,8 +92,9 @@ button{
   position: relative;
   justify-content: space-evenly;
   padding-top: 0em;
-  padding-left: 2em;
   padding-right: 2em;
+  padding-bottom: 5px;
+  
 }
 
 select {
