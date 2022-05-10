@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createGame, getAllGenres } from '../../redux/actions';
 import './CreateGame.css'
@@ -118,10 +118,13 @@ export function CreateGame(props) {
         }
         if(game.description === '' || game.description === null){
             gamesErrors.description = 'Is necessary include the description.'
-        }       
-        if(!/https?:[^\s]+/.test(game.image)){
-            gamesErrors.image = 'Is necessary include a valid image link.'
         }
+        // if(!/https?:[^\s]+/.test(game.image)){
+        //     gamesErrors.image = 'Is necessary include a valid image link.'
+        // }
+        if (!/^(https?:\/\/)?([\da-z-]+)\.([a-z]{2,6})([\w -])\/?/.test(game.image)){
+            gamesErrors.image = 'Is necessary include a valid image link.'
+        }     
         if(!/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[1-9]|2[1-9])$/.test(game.released)){
             gamesErrors.released = 'Invalid date form.'
         }
@@ -260,6 +263,16 @@ export function CreateGame(props) {
             </form>
             </div>
         </div>
+            <div>
+            </div>
+            <div>
+                {
+                game.image !== null && (<h3 className='imageTitleReference'>Check your Game Image, this will be the image.</h3>)                    
+                }
+                {
+                game.image !== null && (<img className='imageReference' alt='imagen game created' src={game.image} />)                    
+                }
+            </div>
         </div>
         )
     } else {

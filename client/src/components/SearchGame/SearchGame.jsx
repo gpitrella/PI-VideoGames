@@ -129,7 +129,6 @@ export default function SearchGame() {
                                 <option value='3'>★★★</option>
                                 <option value='4'>★★★★</option>
                                 <option value='5'>★★★★★</option>
-                                                                    
                         </select>
                         <div>
                             <button type='submit'>Filter</button>

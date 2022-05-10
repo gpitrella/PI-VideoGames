@@ -1,5 +1,5 @@
 import React from 'react';
-import './Home.css'
+import style from './Home.module.css'
 import { connect } from 'react-redux';
 import GameCard from '../GameCard/GameCard';
 import Pagination from '../Pagination/Pagination';
@@ -20,25 +20,25 @@ export function Home(props) {
     }
   
         return (
-            <div className='home'>
+            <div className={style.home}>
 
-                <Pagination className='menuPagination'
+                <Pagination className={style.menuPagination}
                     gamePerPage = {gamePerPage}
                     allGameLength = {props.allGames.length}
                     allFilterGamesLength = {props.filterGames.length}
                     handlePage = {handlePage}
                    
                 />
-            <div className='grid-container'>
-            <label className='allYourGames'> 🎮 All Your Games in one Place </label>
+            <div className={style.gridcontainer}>
+            <label className={style.allYourGames}> 🎮 All Your Games in one Place </label>
                 {                  
                 typeof(props.allGames) === 'string'
-                    ? <span className='dontFoundSearching'> 😭 {props.allGames}</span>
+                    ? <span className={style.dontFoundSearching}> 😭 {props.allGames}</span>
                     : props.allGames.length === 0
-                        ? <h2 className='searching'> 👁‍🗨 Searching ... </h2>
+                        ? <h2 className={style.searching}> 👁‍🗨 Searching ... </h2>
                         : props.filterGames.length > 0 
                             ? currentAllFilterGames.map(game => (
-                                <GameCard className='mainCard'
+                                <GameCard className={style.mainCard}
                                     name = {game.name}
                                     rating = {game.rating}
                                     image = {game.image}
@@ -49,7 +49,7 @@ export function Home(props) {
                                 />   
                             ))                        
                             : currentAllGames.map(game => (
-                                <GameCard className='mainCard'
+                                <GameCard className={style.mainCard}
                                     name = {game.name}
                                     rating = {game.rating}
                                     image = {game.image}
@@ -74,12 +74,6 @@ function mapStateToProps(state){
         filterGames: state.filterGames
     }
 };
-
-// function mapDispatchToProps(dispatch){
-//     return {
-//         getAllGames: () => dispatch(getAllGames())        
-//     }
-// };
 
 export default connect( mapStateToProps, null )(Home)
 

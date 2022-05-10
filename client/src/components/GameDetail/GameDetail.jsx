@@ -29,24 +29,24 @@ export function GameDetail (game){
                                 <p className={style.dateReleased}> 🌀 Released Date: {game.game.released}</p>
                                 <p className={style.dateReleased}> 🌀 Rating: ⭐️ {game.game.rating}</p>
                                 <div className={style.genresPlatforms}>
-                                    <p className={style.genreDetail}> 🌀 Genres: 
-                                        <p>{game.game.genres?.map(genre =>(
-                                            <p className={style.dateGenre} key={Math.random()*1000/8*3}>  -- {genre}</p>
-                                        ))}</p>
-                                    </p>
-                                    <p className={style.platformDetail}> 🌀 Platforms: 
-                                        <p >{game.game.platforms?.map(p =>(
-                                            <p className={style.dateGenre} key={Math.random()*1000/8*3}>  -- {p.platform.name}</p>
-                                        ))}</p> 
-                                    </p>                            
+                                    <span className={style.genreDetail}> 🌀 Genres: 
+                                        <span>{game.game.genres?.map(genre =>(
+                                            <span className={style.dateGenre} key={Math.random()*1000/8*3}> {genre}</span>
+                                        ))}</span>
+                                    </span>
+                                    <span className={style.platformDetail}> 🌀 Platforms: 
+                                        <span>{game.game.platforms?.map(p =>(
+                                            <span className={style.dateGenre} key={Math.random()*1000/8*3}> {p.platform.name}</span>
+                                        ))}</span> 
+                                    </span>                            
                                 </div>
                             </span>
                         </div>
-                            <p className={style.description}>
+                            <span className={style.description}>
                                 <p className={style.descriptionTitle}>Description: </p>
                                 <br></br>
                                 {game.game.description}
-                            </p>
+                            </span>
                     </div>
                     : (<h2 className={style.charging}> 👁‍🗨 Charging ... </h2>)
                 }
@@ -64,24 +64,24 @@ export function GameDetail (game){
                                 <p className={style.dateReleased}> 🌀 Released Date: {gameDetail.released}</p>
                                 <p className={style.dateReleased}> 🌀 Rating: ⭐️ {gameDetail.rating}</p>
                                 <div className={style.genresPlatforms}>
-                                    <p className={style.genreDetail}> 🌀 Genres: 
-                                        <p>{gameDetail.genres?.map(genre =>(
-                                            <p className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}>  -- {genre.name}</p>
-                                        ))}</p>
-                                    </p>
-                                    <p className={style.platformDetail}> 🌀 Platforms: 
-                                        <p >{gameDetail.platforms?.map(p =>(
-                                            <p className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}>  -- {p.platform.name}</p>
-                                        ))}</p> 
-                                    </p>                            
+                                    <span className={style.genreDetail}> 🌀 Genres: 
+                                        <span>{gameDetail.genres?.map(genre =>(
+                                            <span className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}> {genre.name}</span>
+                                        ))}</span>
+                                    </span>
+                                    <span className={style.platformDetail}> 🌀 Platforms: 
+                                        <span>{gameDetail.platforms?.map(p =>(
+                                            <span className={style.dateGenre} key={gameDetail.id*Math.random()*1000/8}> {p.platform.name}</span>
+                                        ))}</span> 
+                                    </span>                            
                                 </div>
                             </span>
                         </div>
-                            <p className={style.description}>
+                            <span className={style.description}>
                                 <p className={style.descriptionTitle}>Description: </p>
                                 <br></br>
                                 {gameDetail.description.replaceAll('<p>','').replaceAll('<br>','').replaceAll('<br />','').replaceAll('</p>','')}
-                            </p>
+                            </span>
                     </div>
                     : (<h2 className={style.charging}> 👁‍🗨 Charging ... </h2>)
                 }

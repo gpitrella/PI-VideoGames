@@ -15,12 +15,7 @@ const initialState = {
     allGames: [],
     filterGames: [],
     gameDetail: {},
-    allGenres: [],
-    dataFilter: {
-        rating: 0,
-        filterGenre: '',
-        filterAZ: 0,  //0:none, 1:AZ, 2:ZA
-    }
+    allGenres: []
 };
 
 

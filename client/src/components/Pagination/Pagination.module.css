@@ -1,4 +1,5 @@
 .pagination {
+    position: fixed;
     display: inline-block;
     padding-top: 4.5em;    
 }
