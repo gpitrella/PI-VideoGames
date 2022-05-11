@@ -4,6 +4,7 @@ import { createGame, getAllGenres } from '../../redux/actions';
 import './CreateGame.css'
 import GameDetail from '../GameDetail/GameDetail';
 
+
 export function CreateGame(props) {
     const [ game, setGame ] = useState({
         name: null,
@@ -128,7 +129,7 @@ export function CreateGame(props) {
         if(!/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[1-9]|2[1-9])$/.test(game.released)){
             gamesErrors.released = 'Invalid date form.'
         }
-        if(![1, 2, 3, 4, 5].includes(parseInt(game.rating))){
+        if(![0, 1, 2, 3, 4, 5].includes(parseInt(game.rating))){
             gamesErrors.rating = 'Invalid rating, this will be a number from 1 to 5'
         }
         if(game.platforms.length === 0){

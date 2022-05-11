@@ -1,0 +1,170 @@
+[
+    {
+      "id": "42e56924-a719-404a-8192-73179c397099",
+      "name": "Nuevo Juego 2",
+      "image": "https://media.rawg.io/media/games/7a2/7a2500ee8b2c0e1ff268bb4479463dea.jpg",
+      "description": "First game created in this database.",
+      "released": "2006-06-01",
+      "rating": 4,
+      "platforms": [
+        {
+          "platform": {
+            "name": "Linux"
+          }
+        }
+      ],
+      "genres": []
+    },
+    {
+      "id": "8de22154-c82f-4af7-8d24-4ab0de0a496c",
+      "name": "Nuevo Juego",
+      "image": "https://media.rawg.io/media/games/7a2/7a2500ee8b2c0e1ff268bb4479463dea.jpg",
+      "description": "First game created in this database.",
+      "released": "2006-06-01",
+      "rating": 4,
+      "platforms": [
+        {
+          "platform": {
+            "name": "Linux"
+          }
+        }
+      ],
+      "genres": []
+    },
+    {
+      "id": "5cd8c114-9a88-46ea-a144-ae856717926b",
+      "name": "nuevo juego",
+      "image": "https://media.rawg.io/media/games/7a2/7a2500ee8b2c0e1ff268bb4479463dea.jpg",
+      "description": "jldjfldjflas",
+      "released": "2022-02-04",
+      "rating": 4,
+      "platforms": [
+        {
+          "platform": {
+            "name": "Xbox"
+          }
+        }
+      ],
+      "genres": []
+    },
+    {
+      "name": "Fallout: New Vegas",
+      "id": 5563,
+      "description": "Remera 100% algodón de Soy Henry.",
+      "genres": [
+        {
+          "id": 4,
+          "name": "Action",
+          "slug": "action",
+          "games_count": 148307,
+          "image_background": "https://media.rawg.io/media/games/511/5118aff5091cb3efec399c808f8c598f.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Shooter",
+          "slug": "shooter",
+          "games_count": 51168,
+          "image_background": "https://media.rawg.io/media/games/46d/46d98e6910fbc0706e2948a7cc9b10c5.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Adventure",
+          "slug": "adventure",
+          "games_count": 111738,
+          "image_background": "https://media.rawg.io/media/games/951/951572a3dd1e42544bd39a5d5b42d234.jpg"
+        },
+        {
+          "id": 5,
+          "name": "RPG",
+          "slug": "role-playing-games-rpg",
+          "games_count": 45438,
+          "image_background": "https://media.rawg.io/media/games/a6c/a6ccd34125c594abf1a9c9821b9a715d.jpg"
+        }
+      ],
+      "released": "2010-10-19",
+      "rating": 4.43,
+      "image": "https://media.rawg.io/media/games/995/9951d9d55323d08967640f7b9ab3e342.jpg",
+      "platforms": [
+        {
+          "platform": {
+            "id": 1,
+            "name": "Xbox One",
+            "slug": "xbox-one",
+            "image": null,
+            "year_end": null,
+            "year_start": null,
+            "games_count": 5213,
+            "image_background": "https://media.rawg.io/media/games/588/588c6bdff3d4baf66ec36b1c05b793bf.jpg"
+          },
+          "released_at": "2010-10-19",
+          "requirements_en": null,
+          "requirements_ru": null
+        },
+        {
+          "platform": {
+            "id": 18,
+            "name": "PlayStation 4",
+            "slug": "playstation4",
+            "image": null,
+            "year_end": null,
+            "year_start": null,
+            "games_count": 6287,
+            "image_background": "https://media.rawg.io/media/games/fc1/fc1307a2774506b5bd65d7e8424664a7.jpg"
+          },
+          "released_at": "2010-10-19",
+          "requirements_en": null,
+          "requirements_ru": null
+        },
+        {
+          "platform": {
+            "id": 16,
+            "name": "PlayStation 3",
+            "slug": "playstation3",
+            "image": null,
+            "year_end": null,
+            "year_start": null,
+            "games_count": 3624,
+            "image_background": "https://media.rawg.io/media/games/c80/c80bcf321da44d69b18a06c04d942662.jpg"
+          },
+          "released_at": "2010-10-19",
+          "requirements_en": null,
+          "requirements_ru": null
+        },
+        {
+          "platform": {
+            "id": 4,
+            "name": "PC",
+            "slug": "pc",
+            "image": null,
+            "year_end": null,
+            "year_start": null,
+            "games_count": 436685,
+            "image_background": "https://media.rawg.io/media/games/d58/d588947d4286e7b5e0e12e1bea7d9844.jpg"
+          },
+          "released_at": "2010-10-19",
+          "requirements_en": {
+            "minimum": "<ul class=\"bb_ul\"><li><strong>OS:</strong> Windows 7/Vista/XP <br>\t\t\t\t\t\t\t\t</li><li><strong>Processor:</strong> Dual Core 2.0GHz<br>\t\t\t\t\t\t\t\t</li><li><strong>Memory:</strong> 2GB RAM<br>\t\t\t\t\t\t\t\t</li><li><strong>Hard Disk Space:</strong> 10GB free space<br>\t\t\t\t\t\t\t\t</li><li><strong>Video Card:</strong> NVIDIA GeForce 6 series, ATI 1300XT series<br>\t\t\t\t\t\t\t\t</li></ul>"
+          },
+          "requirements_ru": {
+            "minimum": "Pentium 4 2.4 ГГц/Athlon XP 2500+,1 Гб памяти,GeForce 6800/Radeon X850,8 Гб на винчестере",
+            "recommended": "Core 2 Duo 2.5 ГГц/Athlon 64 X2 5200+,2 Гб памяти,GeForce 8600 GTS/Radeon X1900,8 Гб на винчестере"
+          }
+        },
+        {
+          "platform": {
+            "id": 14,
+            "name": "Xbox 360",
+            "slug": "xbox360",
+            "image": null,
+            "year_end": null,
+            "year_start": null,
+            "games_count": 2762,
+            "image_background": "https://media.rawg.io/media/games/f46/f466571d536f2e3ea9e815ad17177501.jpg"
+          },
+          "released_at": "2010-10-19",
+          "requirements_en": null,
+          "requirements_ru": null
+        }
+      ]
+    }
+]

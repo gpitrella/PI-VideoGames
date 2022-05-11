@@ -1,4 +1,4 @@
-import configureStore from 'redux-mock-store';
+import configureStore from "redux-mock-store";
 import thunk from 'redux-thunk';
 import { 
     GET_ALL_GAMES, 
@@ -21,15 +21,15 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('Actions', () => {
     const mockStore = configureStore([thunk]);
-    const store = mockStore({
-        allGames: [],
-        filterGames: [],
-        gameDetail: {},
-        allGenres: []
-    });
+    // const store = mockStore({
+    //     allGames: [],
+    //     filterGames: [],
+    //     gameDetail: {},
+    //     allGenres: []
+    // });
     global.fetch = nodeFetch
     beforeEach(() => {
-        store.clearActions();
+        store.clearActions()
 
         // Se Mockea las request a las api
         const apiMock = nock('http://localhost:3000').persist();
@@ -39,9 +39,9 @@ describe('Actions', () => {
 
     });
 
-    afterEach(() => {
-        nock.cleanAll();
-    });
+    // afterEach(() => {
+    //     nock.cleanAll();
+    // });
 
     describe('getAllGames', () => {
         it('Should do a dispatch with all property type "GET_ALL_GAMES" and the payload should be the result link fetch', async () =>{
@@ -63,3 +63,26 @@ describe('Actions', () => {
     });
 
 });
+
+
+// const chai = require('chai')
+// const chaiHttp = require('chai-http')
+// const  should = require('chai').should()
+// const app = require('../../src/app.js')
+
+// chai.use(chaiHttp);
+
+
+// describe('Temperaments Route', () => {
+
+//     it('It should GET all temperaments', (done) => {
+//         chai.request(app)
+//         .get('/videogame')
+//         .end((err, res) => {
+//             res.should.have.status(200)
+//             res.body.should.be.a('array')
+//             done()
+//         })
+//     })
+
+// })
