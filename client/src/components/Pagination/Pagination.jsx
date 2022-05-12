@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import style from './Pagination.module.css';
 
-export default function Pagination( { gamePerPage, allGameLength, allFilterGamesLength, handlePage } ) {
+export default function Pagination( { gamePerPage, allGameLength, allFilterGamesLength, handlePage, allGames, filterGames } ) {
 
     const [ nextPage, setNextPage ] = React.useState([]); // Next Page
     const [ countNext, setCountNext ] = React.useState(0);
@@ -55,11 +55,12 @@ export default function Pagination( { gamePerPage, allGameLength, allFilterGames
     // Update Component
     useEffect(()=>{
         if(nextPage.length === 0){
+            handlePage(1)
             setCurrentPage(numberOfPagination.slice(0, numberPages - offsetPag ))
         } else {
             setCurrentPage(aux)
         }
-    }, [nextPage])
+    }, [nextPage, allGames, filterGames])
 
 
     return (

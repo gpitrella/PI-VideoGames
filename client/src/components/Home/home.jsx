@@ -27,7 +27,8 @@ export function Home(props) {
                     allGameLength = {props.allGames.length}
                     allFilterGamesLength = {props.filterGames.length}
                     handlePage = {handlePage}
-                   
+                    allGames={props.allGames}
+                    filterGames={props.filterGames}                   
                 />
             <div className={style.gridcontainer}>
             <label className={style.allYourGames}> 🎮 All Your Games in one Place </label>
