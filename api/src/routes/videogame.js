@@ -2,10 +2,12 @@ const axios = require("axios");
 // const e = require("express");
 const { Op } = require('sequelize');
 require('dotenv').config();
-const { API_KEY } = process.env;
+// const { API_KEY } = process.env;
 const { Router } = require('express');
 const { Videogame, Genre } = require('../../src/db.js')
 const router = Router();
+
+const API_KEY = "5e76bc5e7bc046e5b6c8a1df54b55726";
 
 router.get('/', async (req, res, next)=>{
     
