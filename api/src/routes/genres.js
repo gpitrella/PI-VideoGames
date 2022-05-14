@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const axios = require("axios");
 require('dotenv').config();
-const { API_KEY } = process.env;
+// const { API_KEY } = process.env;
 const { Genre } = require('../../src/db.js')
 
 const router = Router();
-// const API_KEY = "5e76bc5e7bc046e5b6c8a1df54b55726";
+const API_KEY = "5e76bc5e7bc046e5b6c8a1df54b55726";
 
 router.get('/', async (req, res, next)=>{
     try{
