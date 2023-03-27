@@ -134,11 +134,11 @@ El modelo de la base de datos deberá tener las siguientes entidades (Aquellas p
 
 - [ ] Videojuego con las siguientes propiedades:
   - ID: * No puede ser un ID de un videojuego ya existente en la API rawg
-  - Nombre *
-  - Descripción *
+  - Nombre ****
+  - Descripción ****
   - Fecha de lanzamiento
   - Rating
-  - Plataformas *
+  - Plataformas ****
 - [ ] Genero con las siguientes propiedades:
   - ID
   - Nombre
