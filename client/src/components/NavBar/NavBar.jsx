@@ -21,7 +21,7 @@ export function NavBar(props) {
                     <Link to="/videogame"><img className="imageLogo" src={imageLogo} alt='game Logo' /></Link>
                 </div>
                 <div>
-                    <Link className="createGameNavBar"to="/videogame/creategame">Create Game</Link>
+                    <Link className="createGameNavBar" to="/videogame/creategame">Create Game</Link>
                 </div>
             </div>
             <div>
